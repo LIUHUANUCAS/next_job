@@ -3,7 +3,8 @@
 #include <sstream>
 #include <vector>
 using namespace std;
-
+#define DEBUG 1
+static int Debug = 0;
 // Definition for a Node.
 struct Node {
     int val;
@@ -258,4 +259,19 @@ void print_tree_level(TreeNode* p) {
         }
         cout << endl;
     }
+}
+void setDebug() {
+    Debug = 1;
+}
+void println(const char* format, ...) {
+    // if (!DEBUG) {
+    if (!Debug) {
+        return;
+    }
+    va_list ap;
+    va_start(ap, format);
+    // vfprintf(stderr, format, argptr);
+    vprintf(format, ap);
+    va_end(ap);
+    printf("\n");
 }
