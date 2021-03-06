@@ -1,6 +1,7 @@
 #include <cstdio>
 #include <iostream>
 #include <random>
+#include <stack>
 #include <unordered_map>
 #include <vector>
 #include "../data_type.h"
@@ -24,11 +25,10 @@ class Solution {
         return dfs(root, target);
     }
     TreeNode* dfs(TreeNode* root, int val) {
-        if (root->left)
-            root->left = dfs(root->left, val);
-        if (root->right)
-            root->right = dfs(root->right, val);
-
+        if (root == nullptr)
+            return root;
+        root->left = dfs(root->left, val);
+        root->right = dfs(root->right, val);
         if (root->val == val && root->left == nullptr && root->right == nullptr)
             return nullptr;
         return root;
