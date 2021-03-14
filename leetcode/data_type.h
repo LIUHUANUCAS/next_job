@@ -22,26 +22,29 @@ struct TreeNode {
     TreeNode* left;
     TreeNode* right;
     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-    static TreeNode* create_tree(vector<int>& A) { return create_tree(A, 0); }
+    static TreeNode* create_tree(vector<int>& A) {
+        int k = 0;
+        return create_tree(A, k);
+    }
     static TreeNode* create_tree(string& res) {
         replace(res.begin(), res.end(), ',', ' ');
         res = string(res.begin() + 1, res.end() - 1);
         // cout << "input:" << res << endl;
         return deserialize(res);
     }
-    static TreeNode* create_tree(vector<int>& A, int i) {
+    static TreeNode* create_tree(vector<int>& A, int& i) {
         int n = A.size();
         if (i >= n)
             return nullptr;
         auto root = new TreeNode(A[i]);
-        if (i + 1 < n) {
-            root->left = new TreeNode(A[i + 1]);
+        if ((++i) < n) {
+            root->left = new TreeNode(A[i]);
         }
-        if (i + 2 < n) {
-            root->right = new TreeNode(A[i + 2]);
+        if ((++i) < n) {
+            root->right = new TreeNode(A[i]);
         }
-        // root->left = create_tree(A, i + 1);
-        // root->right = create_tree(A, i + 2);
+        root->left = create_tree(A, i);
+        root->right = create_tree(A, i);
         return root;
     }
     static TreeNode* decode(string& str) {

@@ -1,6 +1,6 @@
 #!/bin/bash
-
-name=`bash generate_filename.sh "$1"`
+curdir=`dirname $0`
+name=`bash $curdir/generate_filename.sh "$1"`
 echo $name
-src="00-tamplete-file.cpp"
+src="$curdir/00-tamplete-file.cpp"
 cp  "$src" $name
