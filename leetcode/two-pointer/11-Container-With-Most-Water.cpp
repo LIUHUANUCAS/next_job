@@ -8,29 +8,27 @@
 
 using namespace std;
 class Solution {
-public:
+   public:
     int maxArea(vector<int>& A) {
         int n = A.size();
+        int lo = 0, hi = n - 1;
         int r = 0;
-        for(int i = 1 ;i < n; i++ ) {
-            int rmax = A[i] ;
-            for(int j = i +1; j < n; j++) {
-                rmax = max(A[j],rmax);
+        while (lo < hi) {
+            r = max(r, min(A[lo], A[hi]) * (hi - lo));
+            if (A[lo] < A[hi]) {
+                lo++;
+            } else {
+                hi--;
             }
-            int lmax = A[i];
-            for(int j = i-1; j >=0 ;--j) {
-                lmax = max(A[j],lmax);
-            }
-            r += min(lmax,rmax) - A[i];
         }
         return r;
     }
 };
 int main() {
     Solution so;
-    vector<int> A ;
+    vector<int> A;
     {
-        A = {1,8,6,2,5,4,8,3,7};
+        A = {1, 8, 6, 2, 5, 4, 8, 3, 7};
         auto r = so.maxArea(A);
         cout << r << endl;
     }
