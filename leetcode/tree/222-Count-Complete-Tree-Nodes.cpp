@@ -37,7 +37,7 @@ class Solution {
         auto L = count(root->left, 0);
         auto R = count(root->right, 1);
         if (L == R)
-            return pow(2, L + 1) - 1;
+            return (1 << (L + 1)) - 1;
         return count_dfs(root->left) + count_dfs(root->right) + 1;
     }
     int count(TreeNode* root, int dir) {
