@@ -12,7 +12,6 @@ class Solution {
     string decodeString(string s) {
         stack<char> st;
         int n = s.size();
-        stack<string> num;
         string str;
         for (int i = 0; i < n; i++) {
             auto c = s[i];
@@ -31,15 +30,6 @@ class Solution {
         reverse(str.begin(), str.end());
         return str;
     }
-    // string dfs(string& s, int i, int& left) {
-    //     if (i == s.size()) {
-    //         return "";
-    //     }
-    //     if (s[i] == '[')
-    //         left++;
-    //     auto str = dfs(s, i + 1, left);
-
-    // }
     void getstring(stack<char>& st) {
         string str("");
         while (!st.empty()) {
@@ -72,35 +62,25 @@ class Solution {
             for (auto it = str.rbegin(); it != str.rend(); ++it) {
                 st.push(*it);
             }
-            cout << str;
+            // cout << str;
         }
-        cout << endl;
+        // cout << endl;
     }
 };
 int main() {
     Solution so;
     stack<char> st;
-    string s("3[abc");
-    string s2("3[abc]");
-    for (auto e : s)
-        st.push(e);
+    // string s("3[abc");
+    // string s2("3[abc]");
+    // for (auto e : s)
+    //     st.push(e);
 
-    so.getstring(st);
-    {
-        s2 = "3[a]2[bc]";
-        cout << so.decodeString(s2) << endl;
-    }
-    {
-        s2 = "3[a2[c]]";
-        cout << so.decodeString(s2) << endl;
-    }
-    {
-        s2 = "2[abc]3[cd]ef";
-        cout << so.decodeString(s2) << endl;
-    }
-    {
-        s2 = "abc3[cd]xyz";
-        cout << so.decodeString(s2) << endl;
+    // so.getstring(st);
+    vector<string> test;
+    test = {"3[a]2[bc]", "3[a2[c]]", "2[abc]3[cd]ef", "abc3[cd]xy1[za]"};
+
+    for (auto str : test) {
+        cout << str << ":" << so.decodeString(str) << endl;
     }
     return 0;
 }
