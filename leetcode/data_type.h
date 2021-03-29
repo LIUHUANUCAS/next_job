@@ -199,14 +199,32 @@ void printvector(vector<char>& array) {
     cout << "}" << endl;
 }
 
+void printvector(vector<string>& array) {
+    cout << "[";
+    for (auto e : array) {
+        cout << e << endl;
+    }
+    cout << "]" << endl;
+}
+
 template <typename T>
 void printvector(vector<T>& array) {
-    cout << "{";
+    cout << "[";
     for (auto e : array) {
         cout << e << " ";
     }
+    cout << "]" << endl;
+}
+
+template <typename T>
+void printvector(vector<vector<T>>& array) {
+    cout << "{";
+    for (auto e : array) {
+        printvector(e);
+    }
     cout << "}" << endl;
 }
+
 void printvector(vector<vector<int>>& array) {
     cout << "{";
     for (auto e : array) {
