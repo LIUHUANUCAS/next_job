@@ -18,7 +18,18 @@ class Solution {
             return 0;
         int n = A.size();
         sort(A.begin(), A.end());
-        return dfs(A, sum / 2, 0);
+        // return dfs(A, sum / 2, 0);
+        return dfs2(A, n - 1, sum / 2);
+    }
+
+    int dfs2(vector<int>& A, int size, int sum) {
+        if (sum == 0)
+            return 1;
+        if (sum < 0 || size <= 0)
+            return 0;
+        int with = dfs2(A, size - 1, sum - A[size]);
+        int without = dfs2(A, size - 1, sum);
+        return with + without;
     }
     int dfs(vector<int>& A, int sum, int idx) {
         // printf("%d\n", sum);
