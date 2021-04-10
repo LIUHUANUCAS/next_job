@@ -1,10 +1,4 @@
 
-/**
-给定排好序的非负整数数组nums，
-请在其中找出不大于c的最大值。
-A[i] <= c, [2,3,5,x]
-A[i] < c, [2,3,5,x]
-*/
 #include <iostream>
 #include <unordered_map>
 #include <vector>
@@ -57,7 +51,9 @@ vector<pair> p = {
         pair(9, 3, 6),
 
     };
-
+1,7,3,9具有对称性
+4,6 具有对称性
+2,8 具有对称性
 
 
 [1,2,3]
@@ -73,6 +69,9 @@ struct Pair {
     Pair(int s, int d, int o) : src(s), dest(d), obs(o) {}
 };
 struct Puzzle {
+    // 1, 7, 3, 9具有对称性
+    // 4, 6 具有对称性
+    // 2, 8 具有对称性
     vector<Pair> pairs = {
         // 1
         Pair(1, 3, 2),
@@ -160,7 +159,8 @@ struct Puzzle {
             if (i == x || A[i] < 0) {
                 continue;
             }
-            // x被访问情况下，i不被访问，并且能连接
+            // x被访问情况下，i不被访问，并且（x,i）能连接，
+            // 当时valid_connect没有及时写出来，如果能够列出障碍点，就简单了，思路有些混乱
             if (A[i] > 0 && valid_connect(A, x, i)) {
                 dfs(A, i, c + 1, onepath);
             }
