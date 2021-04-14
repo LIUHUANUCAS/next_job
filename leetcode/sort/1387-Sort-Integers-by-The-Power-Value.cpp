@@ -18,10 +18,11 @@ class Solution {
             A[i - lo] = i;
         }
 
-        auto cmp = [&](const int a, const int b) {
-            int x = count[a - lo];
-            int y = count[b - lo];
-            return x < y ? 1 : (x == y ? a < b : 0);
+        auto cmp = [&](const int i, const int j) {
+            int x = count[i - lo];
+            int y = count[j - lo];
+            return x == y ? i < j : x < y;
+            // return x < y ? 1 : (x == y ? i < j : 0);
         };
         sort(A.begin(), A.end(), cmp);
         return A[k - 1];
