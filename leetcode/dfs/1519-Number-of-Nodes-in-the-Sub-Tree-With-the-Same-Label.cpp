@@ -20,7 +20,7 @@ class Solution {
         for (auto e : edges) {
             int u = e[0], v = e[1];
             g[u].push_back(v);
-            g[v].push_back(u);
+            g[v].push_back(u);  // undirected graph
         }
         dfs(g, labels, 0, visit);
         return ans;
