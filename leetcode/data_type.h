@@ -202,7 +202,7 @@ void printvector(vector<char>& array) {
 void printvector(vector<string>& array) {
     cout << "[";
     for (auto e : array) {
-        cout << e << endl;
+        cout << e << " ";
     }
     cout << "]" << endl;
 }

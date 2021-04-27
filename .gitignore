@@ -35,3 +35,17 @@ leetcode/tree/c.sh
 leetcode/tree/test
 leetcode/two-pointer/c.sh
 leetcode/two-pointer/test
+
+leetcode/divide-conquer/test.dSYM/
+leetcode/divide-conquer/test*
+leetcode/backtracking/test*
+leetcode/backtracking/*.sh
+
+leetcode/priority_queue/test*
+leetcode/priority_queue/*.sh
+leetcode/topological-sort/test*
+leetcode/graph/*.sh
+leetcode/graph/test*
+leetcode/cpp/test*
+leetcode/cpp/*.sh
+leetcode/topological-sort/*.sh
