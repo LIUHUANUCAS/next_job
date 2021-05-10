@@ -35,3 +35,11 @@ leetcode/tree/c.sh
 leetcode/tree/test
 leetcode/two-pointer/c.sh
 leetcode/two-pointer/test
+
+leetcode/bit/c.sh
+leetcode/bit/test*
+leetcode/trie/c.sh
+leetcode/trie/test*
+
+leetcode/backtracking/c.sh
+leetcode/backtracking/test*
