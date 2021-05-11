@@ -15,8 +15,31 @@ class Solution {
     unordered_map<string, int> cache;
     int numDistinct(string s, string t) {
         cache.clear();
-        return dfs(s, 0, t, 0);
+        return dyp(s, t);
+        // return dfs(s, 0, t, 0);
     }
+    int dyp(string& s, string& t) {
+        int m = s.size(), n = t.size();
+        if (n > m)
+            return 0;
+        vector<vector<int>> dp(m + 1, vector<int>(n + 1, 0));
+        // dp[i][j] means s[0,i] vs t[0,j] number of distinct subseq
+        for (int i = 0; i <= m; i++) {
+            dp[i][0] = 1;
+        }
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (s[i - 1] == t[j - 1]) {  // equal ,will be s[0,i-1] vs
+                                             // t[0,j-1],+  s[0,i-1] vs t[0,j]
+                    dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j];
+                } else {  // not equal must be s[0,i-1] vs t[0,j];
+                    dp[i][j] = dp[i - 1][j];
+                }
+            }
+        }
+        return dp[m][n];
+    }
+
     int dfs(string& s, int i, string& t, int j) {
         if (j == t.size()) {
             return 1;
@@ -52,6 +75,27 @@ int main() {
     }
     {
         s = "babgbag", t = "bag";
+        r = so.numDistinct(s, t);
+        cout << r << endl;
+    }
+    {
+        s = "xslledayhxhadmctrliaxqpokyezcfhzaskeykchkmhpyjipxtsuljkwkovmvelvwx"
+            "zwieeuqnjozrfwmzsylcwvsthnxujvrkszqwtglewkycikdaiocglwzukwovsghkhy"
+            "idevhbgffoqkpabthmqihcfxxzdejletqjoxmwftlxfcxgxgvpperwbqvhxgsbbkmp"
+            "hyomtbjzdjhcrcsggleiczpbfjcgtpycpmrjnckslrwduqlccqmgrdhxolfjafmsrf"
+            "dghnatexyanldrdpxvvgujsztuffoymrfteholgonuaqndinadtumnuhkboyzaqguw"
+            "qijwxxszngextfcozpetyownmyneehdwqmtpjloztswmzzdzqhuoxrblppqvyvsqhn"
+            "hryvqsqogpnlqfulurexdtovqpqkfxxnqykgscxaskmksivoazlducanrqxynxlgvw"
+            "onalpsyddqmaemcrrwvrjmjjnygyebwtqxehrclwsxzylbqexnxjcgspeynlbmetlk"
+            "acnnbhmaizbadynajpibepbuacggxrqavfnwpcwxbzxfymhjcslghmajrirqzjqxpg"
+            "tgisfjreqrqabssobbadmtmdknmakdigjqyqcruujlwmfoagrckdwyiglviyyrekje"
+            "alvvigiesnvuumxgsveadrxlpwetioxibtdjblowblqvzpbrmhupyrdophjxvhgzcl"
+            "idzybajuxllacyhyphssvhcffxonysahvzhzbttyeeyiefhunbokiqrpqfcoxdxvef"
+            "ugapeevdoakxwzykmhbdytjbhigffkmbqmqxsoaiomgmmgwapzdosorcxxhejvgajy"
+            "zdmzlcntqbapbpofdjtulstuzdrffafedufqwsknumcxbschdybosxkrabyfdejgyo"
+            "zwillcxpcaiehlelczioskqtptzaczobvyojdlyflilvwqgyrqmjaeepydrcchfyft"
+            "jighntqzoo";
+        t = "rwmimatmhydhbujebqehjprrwfkoebcxxqfktayaaeheys";
         r = so.numDistinct(s, t);
         cout << r << endl;
     }
