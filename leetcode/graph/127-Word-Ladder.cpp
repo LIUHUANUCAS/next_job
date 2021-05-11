@@ -61,16 +61,25 @@ class Solution {
         vector<int> visit(size, 0), pathto(size, 0), dist(size, INT_MAX);
         queue<int> que;
         dist[s] = 0;
+        visit[s] = 1;
         que.push(s);
         while (!que.empty()) {
             auto x = que.front();
             que.pop();
             for (auto adj : g[x]) {
-                if (dist[adj] > dist[x] + 1) {
+                if (!visit[adj]) {
                     dist[adj] = dist[x] + 1;
                     que.push(adj);
+                    visit[adj] = 1;
                     pathto[adj] = x;
+                    if (adj == end)
+                        break;
                 }
+                // if (dist[adj] > dist[x] + 1) {
+                //     dist[adj] = dist[x] + 1;
+                //     que.push(adj);
+                //     pathto[adj] = x;
+                // }
             }
         }
         if (dist[end] != INT_MAX) {
