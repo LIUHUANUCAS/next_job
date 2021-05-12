@@ -161,7 +161,9 @@ struct StringType {
 void print_list(ListNode* p) {
     cout << "[ ";
     for (; p != nullptr; p = p->next) {
-        cout << p->val << " ";
+        cout << p->val;
+        if (p->next)
+            cout << " ";
     }
     cout << "]" << endl;
 }
@@ -199,19 +201,19 @@ void printvector(vector<char>& array) {
     cout << "}" << endl;
 }
 
-void printvector(vector<string>& array) {
-    cout << "[";
-    for (auto e : array) {
-        cout << e << endl;
-    }
-    cout << "]" << endl;
-}
+// void printvector(vector<string>& array) {
+//     cout << "[";
+//     for (auto e : array) {
+//         cout << e << endl;
+//     }
+//     cout << "]" << endl;
+// }
 
 template <typename T>
 void printvector(vector<T>& array) {
     cout << "[";
-    for (auto e : array) {
-        cout << e << " ";
+    for (auto it = array.begin(); it != array.end(); ++it) {
+        cout << *it << (it + 1 != array.end() ? "," : "");
     }
     cout << "]" << endl;
 }

@@ -18,34 +18,15 @@ class Solution {
     vector<string> wordBreak(string s, vector<string>& wordDict) {
         res.clear();
         dyp(s, wordDict);
-        // for (auto& r : res) {
-        //     printvector(r);
-        // }
         return getresult(res, s);
     }
-    vector<string> getresult(vector<vector<int>>& path, string& s) {
-        vector<string> res;
-        for (auto& p : path) {
-            stringstream sst;
-            int pre = 0;
-            for (auto it = p.begin(); it != p.end(); it++) {
-                string str(s.substr(pre, *it - pre + 1));
-                if (!str.empty()) {
-                    sst << str << (it + 1 != p.end() ? " " : "");
-                }
 
-                pre = *it + 1;
-            }
-            res.push_back(sst.str());
-        }
-        return res;
-    }
-
-    vector<int> dyp(string& s, vector<string>& wordDict) {
+    void dyp(string& s, vector<string>& wordDict) {
         int n = s.size();
         unordered_set<string> set(wordDict.begin(), wordDict.end());
+        // dp[i]:list is for splitable place
         vector<vector<int>> dp(n + 1, vector<int>());
-        dp[n].push_back(n + 1);
+        dp[n].push_back(n + 1);  // last one for end flag
         // dp[i] = dp[j] && isword(s[j,n]);
         for (int i = n - 1; i >= 0; i--) {
             for (int j = n; j >= i; j--) {
@@ -56,16 +37,17 @@ class Solution {
             }
         }
         if (dp[0].empty())
-            return {};
+            return;
+        // dp is just a graph about index in s, we should find all path from
+        // index=0 to index=end(s.length)
         vector<int> path;
         backtracking(dp, 0, s, path);
-        return {};
     }
+    // backtracking for all path
     void backtracking(vector<vector<int>>& g,
                       int idx,
                       string& s,
                       vector<int>& path) {
-        // vector<string> res;
         // printf("idx:%d,%ld\n", idx, g.size());
         int n = g.size();
         if (idx + 1 == g.size()) {
@@ -84,6 +66,24 @@ class Solution {
     }
     int isword(string& s, unordered_set<string>& set) {
         return set.find(s) != set.end();
+    }
+
+    vector<string> getresult(vector<vector<int>>& path, string& s) {
+        vector<string> res;
+        for (auto& p : path) {
+            stringstream sst;
+            int pre = 0;
+            for (auto it = p.begin(); it != p.end(); it++) {
+                string str(s.substr(pre, *it - pre + 1));
+                if (!str.empty()) {
+                    sst << str << (it + 1 != p.end() ? " " : "");
+                }
+
+                pre = *it + 1;
+            }
+            res.push_back(sst.str());
+        }
+        return res;
     }
 };
 int main() {
