@@ -15,10 +15,31 @@ class Solution {
    public:
     unordered_map<int, int> cache;
     bool wordBreak(string s, vector<string>& wordDict) {
-        cache.clear();
-        unordered_set<string> set(wordDict.begin(), wordDict.end());
-        return dfs(s, 0, set);
+        // cache.clear();
+        // unordered_set<string> set(wordDict.begin(), wordDict.end());
+        // return dfs(s, 0, set);
+        return dyp(s, wordDict);
     }
+    bool dyp(string& s, vector<string>& wordDict) {
+        int n = s.size();
+        unordered_set<string> set(wordDict.begin(), wordDict.end());
+        vector<int> dp(n + 1, 0);
+        dp[n] = 1;
+        // dp[i] = dp[j] && isword(s[j,n]);
+        for (int i = n - 1; i >= 0; i--) {
+            for (int j = n; j >= i && !dp[i]; j--) {
+                string str(s.substr(i, j - i));
+                if (dp[j] && isword(str, set)) {
+                    dp[i] = 1;
+                }
+            }
+        }
+        return dp[0];
+    }
+    int isword(string& s, unordered_set<string>& set) {
+        return set.find(s) != set.end();
+    }
+
     int dfs(string& s, int idx, unordered_set<string>& set) {
         int n = s.size();
         if (idx == n)
