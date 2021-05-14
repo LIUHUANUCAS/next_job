@@ -6,6 +6,7 @@
 template <class T, class Container = vector<T>,
   class Compare = less<typename Container::value_type> > class priority_queue;
 ```
+
 - 按着这个模板定义来看，需要给出每一个**模板参数的类型**，来实例化模板。
 默认使用的是小于操作的比较运算符，底层使用vector来实现，算法使用make_heap,push_heap,pop_heap一系列堆操作来完成。
 
@@ -75,3 +76,4 @@ priority_queue<student,vector<student>,function<bool(const student&,const studen
 
 - 上述情况，也适用于其他的数据结构和算法。
 - 例如：`lambda表达式`自定义函数算法，来进行结合`STL算法和数据结构`的使用
+  
