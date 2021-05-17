@@ -10,7 +10,7 @@ struct Node {
     int val;
     Node* next;
     Node* random;
-    Node(int _val) {
+    Node(int _val = 0) {
         val = _val;
         next = NULL;
         random = NULL;
@@ -138,7 +138,7 @@ bool sameTree(TreeNode* A, TreeNode* B) {
 struct ListNode {
     int val;
     ListNode* next;
-    ListNode(int x) : val(x), next(NULL) {}
+    ListNode(int x = 0) : val(x), next(NULL) {}
     static ListNode* create_list(vector<int>& A) {
         ListNode dumpy(0);
         ListNode* p = &dumpy;

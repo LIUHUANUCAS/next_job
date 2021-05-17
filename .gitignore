@@ -43,3 +43,16 @@ leetcode/trie/test*
 
 leetcode/backtracking/c.sh
 leetcode/backtracking/test*
+
+hotstar/c.sh
+hotstar/test*
+
+
+leetcode/cpp/c.sh
+leetcode/cpp/test*
+leetcode/priority_queue/c.sh
+leetcode/priority_queue/test*
+leetcode/hash-table/c.sh
+leetcode/graph/test*
+leetcode/graph/c.sh
+leetcode/hash-table/test*
