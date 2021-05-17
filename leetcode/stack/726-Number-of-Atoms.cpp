@@ -40,7 +40,7 @@ class Solution {
                     st.push(e);
                 }
                 i = next;
-            } else {  // s[i] == '(' for character
+            } else {  // s[i] == '(' or  character
                 st.push(s[i]);
                 i++;
             }
