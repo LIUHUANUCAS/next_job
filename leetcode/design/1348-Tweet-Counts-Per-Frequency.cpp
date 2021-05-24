@@ -11,14 +11,16 @@
 
 using namespace std;
 class TweetCounts {
-    unordered_map<string, vector<int>> post;
+    // unordered_map<string, vector<int>> post;
+    unordered_map<string, multiset<int>> post;
 
    public:
     TweetCounts() {}
 
     void recordTweet(string tweetName, int time) {
-        post[tweetName].push_back(time);
-        sort(post[tweetName].begin(), post[tweetName].end());
+        post[tweetName].insert(time);
+        // post[tweetName].push_back(time);
+        // sort(post[tweetName].begin(), post[tweetName].end());
     }
 
     vector<int> getTweetCountsPerFrequency(string freq,
