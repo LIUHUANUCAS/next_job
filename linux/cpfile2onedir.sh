@@ -17,4 +17,4 @@ for file in $(
     cp $file $dest
 done
 
-# find $src | grep parquet$ | grep -v $dest | xargs -n1 -I{} cp {} $dest
+# mkdir -p $dest && find $src | grep parquet$ | grep -v $dest | xargs -n1 -I{} cp {} $dest
