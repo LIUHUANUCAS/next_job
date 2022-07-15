@@ -7,8 +7,8 @@ import copy
 
 from numpy import insert
 
-reload(sys)
-sys.setdefaultencoding('utf8')
+# reload(sys)
+# sys.setdefaultencoding('utf8')
 
 # table name for update
 tableName = 'risk'
@@ -49,8 +49,8 @@ def load(filename):
     with open(filename) as f:
         for line in f.readlines():
             line = line.strip().split(',')
-            prov = line[2].decode('utf-8')
-            city = line[3].decode('utf-8')
+            prov = line[2]  # .decode('utf-8')
+            city = line[3]  # .decode('utf-8')
             # print(SQLCOMMENT+'' + prov+','+city)
             row_dict = {row_keys[i]: line[i] for i in range(len(row_keys))}
             data_dict[line[0]] = row_dict

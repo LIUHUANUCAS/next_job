@@ -59,7 +59,8 @@ def generate_format_data(data, city_code, flag):
         if prov in whitelist:
             city = ''
             query_city = prov
-        if city_code[query_city] is not None:
+        # if city_code[query_city] is not None:
+        if query_city in city_code.keys():
             code = city_code[query_city]
             prov_decode = prov
             line = [code, str(flag), prov_decode, city, today]
@@ -96,7 +97,7 @@ if __name__ == '__main__':
     high = data['data']['highlist']
     mid = data['data']['middlelist']
     end_update_time = data['data']['end_update_time']
-    print('last_update_at', end_update_time)
+    print('### last_update_at', end_update_time)
     city_code_map = load_city_name_map(cityname)
     # print(city_code_map)
     high_map = generate_format_data(high, city_code_map, 2)
