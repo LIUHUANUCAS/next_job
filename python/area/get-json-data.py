@@ -2,6 +2,7 @@ from bz2 import compress
 import hashlib
 
 import datetime
+import time
 import json
 import requests
 from copy import deepcopy
@@ -28,7 +29,7 @@ import curlify
 passHeader = "zzdw"
 nonceHeader = "123456789abcdefg"
 i = "23y0ufFl5YxIyGrI8hWRUZmKkvtSjLQA"
-signKey = "fTN2pfuisxTavbTuYVSsNJHetwq5bJvCQkjjtiLM2dCratiA"
+signKey = "QkjjtiLM2dCratiA"
 
 x_wif_nonce = "QkjjtiLM2dCratiA"
 x_wif_paasid = "smt-application"
@@ -38,7 +39,7 @@ x_wif_paasid = "smt-application"
 url = 'https://bmfw.www.gov.cn/bjww/interface/interfaceJson'
 x_wif_signature = 'x-wif-signature'
 x_wif_timestamp = 'x-wif-timestamp'
-
+timestamp = str(int(time.time()))
 
 # curl 'https://bmfw.www.gov.cn/bjww/interface/interfaceJson' \
 #   -H 'Connection: keep-alive' \
@@ -79,12 +80,15 @@ header = {
     'Sec-Fetch-Mode': 'cors',
     'Sec-Fetch-Dest': 'empty',
     'Referer': 'https://bmfw.www.gov.cn/yqfxdjcx/risk.html',
-    'Accept-Language': 'zh-CN,zh;q=0.9'
+    'Accept-Language': 'zh-CN,zh;q=0.9',
+    'Host': 'bmfw.www.gov.cn'
 }
 
 
 def get_256(s):
-    return hashlib.sha256(s.encode('utf-8')).hexdigest().upper()
+    hsobj = hashlib.sha256()
+    hsobj.update(s.encode('utf-8'))
+    return hsobj.hexdigest().upper()
 
 
 # o = CryptoJS.SHA256(n + "fTN2pfuisxTavbTuYVSsNJHetwq5bJvCQkjjtiLM2dCratiA" + n)
@@ -94,24 +98,20 @@ def get_x_wif_signature(timestamp):
 
 
 def getbody():
-    current = datetime.datetime.now()
-    ct = current.timestamp()
-    # ct = 1651545264
-    e = str(round(ct))
-    print(e)
-    i = "23y0ufFl5YxIyGrI8hWRUZmKkvtSjLQA"
-    a = "123456789abcdefg"
+
+    print(timestamp)
     headers = deepcopy(header)
-    headers[x_wif_timestamp] = str(e)
-    headers[x_wif_signature] = get_x_wif_signature(round(ct))
-    x = e+i+a+e
-    print(x)
-    print(get_x_wif_signature(round(ct)))
+
+    headers[x_wif_timestamp] = str(timestamp)
+    headers[x_wif_signature] = get_x_wif_signature(timestamp)
+    x = timestamp + i + nonceHeader + timestamp
+    print('token:', x)
+    print('signature:', headers[x_wif_signature])
     s = "zdww"
     body = {
         "appId": "NcApplication",
         "paasHeader": passHeader,
-        "timestampHeader": e,
+        "timestampHeader": timestamp,
         "nonceHeader": nonceHeader,
         "signatureHeader": get_256(x),
         "key": "3C502C97ABDA40D0A60FBEE50FAAD1DA",
@@ -121,8 +121,9 @@ def getbody():
 
 def send_post_request(url):
     body, headers = getbody()
-    print(body, header)
-    r = requests.post(url, data=body, headers=headers)
+    print('body:', body)
+    print('header:', header)
+    r = requests.post(url, json=body, headers=headers)
     if r.status_code != 200:
         print('status_code:%s' % r.status_code)
         return
@@ -131,8 +132,6 @@ def send_post_request(url):
 
 
 send_post_request(url)
-# body, header = getbody()
-# print(json.dumps(body))
 
 # var i = s(t),
 #                 n = JSON.parse(i)

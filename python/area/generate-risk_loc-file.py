@@ -55,6 +55,7 @@ def generate_format_data(data, city_code, flag):
     for e in data:
         prov = e['province']
         city = e['city']
+        print(prov, city)
         query_city = city
         if prov in whitelist:
             city = ''
@@ -107,7 +108,7 @@ if __name__ == '__main__':
 
     loc_list = get_list(result_loc_map)
     output_filename = datetime.datetime.now().strftime('%Y-%m-%d-%H')
-    with open(output_filename+'_new_risk_loc.txt', 'w') as f:
+    with open('new_risk/'+output_filename+'_new_risk_loc.txt', 'w') as f:
         for e in loc_list:
             row = [e[row_keys[i]] for i in range(len(row_keys))]
 
