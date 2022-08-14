@@ -14,8 +14,9 @@ yestoday_filename=`ls $riskdir/*.txt | grep 'new_risk'|awk '{print substr($1,0,1
 yes_time=` date  -v -1d +"%Y-%m-%d"`
 yestoday_filename=`ls $riskdir | grep new_risk | grep $yes_time|head -1`
 
-url="https://diqu.gezhong.vip/api.php"
-curl $url  > "$today_filename"
+# url="https://diqu.gezhong.vip/api.php"
+# curl $url  > "$today_filename"
+python3 get_interface.py "$today_filename"
 
 python3 generate-risk_loc-file.py "$today_filename"
 today_time=`date +"%Y-%m-%d"`
